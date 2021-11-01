@@ -49,4 +49,20 @@ class ArtistsController < ApplicationController
   def artist_params
     params.require(:artist).permit(:name)
   end
+
+  def songs_index
+    @artist = Artist.find(params[:id])
+    @posts = @author.posts
+    render template: 'posts/index'
+  end
+
+  def song
+    @artist = Artist.find(params[:id])
+
+    # Note that because ids are unique by table we can go directly to
+    # Post.find — no need for @author.posts.find...
+    @artist = Artist.find(params[:post_id])
+    render template: 'songs/show'
+  end
+  
 end
